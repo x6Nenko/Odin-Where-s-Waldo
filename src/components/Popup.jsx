@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types';
 
 const Popup = ({ positionX, positionY }) => {
-  //console.log(positionX, positionY);
   const style = {
     position: 'absolute',
-    top: `${positionY}px`,
-    left: `${positionX}px`,
+    top: `${positionY - 38}px`,
+    left: `${positionX - 38}px`,
   };
 
   return (
-    <div className="popup" style={style}>Popup</div>
+    <div className="popup" style={style}>
+      <div className='target'>
+        <div className='target-dot'></div>
+      </div>
+
+      <div className='dropdown'>
+        <button>Waldo 1</button>
+        <button>Waldo 2</button>
+        <button>Waldo 3</button>
+      </div>
+    </div>
   )
 }
 

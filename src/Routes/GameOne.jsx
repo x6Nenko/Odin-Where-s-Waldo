@@ -10,13 +10,12 @@ const GameOne = () => {
     const x = event.pageX; // X coordinate relative to the document
     const y = event.pageY; // Y coordinate relative to the document
     
-    console.log({ x, y });
+    //console.log({ x, y });
 
     setCurrentPosition({x: x, y: y});
     setIsOpen(!isOpen);
   };
 
-  //console.log(mousePosition);
   return (
     <main>
       <div className="image-container" >
