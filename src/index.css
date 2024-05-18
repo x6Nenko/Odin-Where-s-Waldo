@@ -17,3 +17,12 @@ body {
 .game-picture {
   width: 100%;
 }
+
+.image-container {
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  border: 3px solid rgb(30, 255, 0);
+}
