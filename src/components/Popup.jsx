@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Popup = ({ positionX, positionY }) => {
+const Popup = ({ positionX, positionY, handleSelect }) => {
   const style = {
     position: 'absolute',
     top: `${positionY - 38}px`,
@@ -14,9 +14,9 @@ const Popup = ({ positionX, positionY }) => {
       </div>
 
       <div className='dropdown'>
-        <button>Waldo 1</button>
-        <button>Waldo 2</button>
-        <button>Waldo 3</button>
+        <button onClick={(e) => handleSelect(e, "Waldo 1")}>Waldo 1</button>
+        <button onClick={(e) => handleSelect(e, "Waldo 2")}>Waldo 2</button>
+        <button onClick={(e) => handleSelect(e, "Waldo 3")}>Waldo 3</button>
       </div>
     </div>
   )
@@ -25,6 +25,7 @@ const Popup = ({ positionX, positionY }) => {
 Popup.propTypes = {
   positionX: PropTypes.number,
   positionY: PropTypes.number,
+  handleSelect: PropTypes.func,
 };
 
 export default Popup
