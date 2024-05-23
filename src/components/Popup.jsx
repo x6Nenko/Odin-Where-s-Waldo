@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 const Popup = ({ positionX, positionY, handleSelect }) => {
   const style = {
     position: 'absolute',
-    top: `${positionY - 38}px`,
-    left: `${positionX - 38}px`,
+    top: `calc(${positionY * 100}% - 41px)`,
+    left: `calc(${positionX * 100}% - 37.3px)`,
   };
 
   return (
