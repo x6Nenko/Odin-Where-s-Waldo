@@ -7,8 +7,8 @@ const GameOne = () => {
   const [currentPosition, setCurrentPosition] = useState({});
 
   const handleImgClick = (event) => {
-    const x = event.pageX; // X coordinate relative to the document
-    const y = event.pageY; // Y coordinate relative to the document
+    const x = event.nativeEvent.offsetX/event.nativeEvent.target.offsetWidth;
+    const y = event.nativeEvent.offsetY/event.nativeEvent.target.offsetHeight;
     
     console.log({ x, y });
 
