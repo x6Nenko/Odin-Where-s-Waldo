@@ -14,9 +14,9 @@ const Popup = ({ positionX, positionY, handleSelect }) => {
       </div>
 
       <div className='dropdown'>
-        <button onClick={(e) => handleSelect(e, "Waldo 1")}>Waldo 1</button>
-        <button onClick={(e) => handleSelect(e, "Waldo 2")}>Waldo 2</button>
-        <button onClick={(e) => handleSelect(e, "Waldo 3")}>Waldo 3</button>
+        <button onClick={(e) => handleSelect(e, "Guts")}>Guts</button>
+        <button onClick={(e) => handleSelect(e, "Griffith")}>Griffith</button>
+        <button onClick={(e) => handleSelect(e, "Crash")}>Crash</button>
       </div>
     </div>
   )

@@ -5,6 +5,27 @@ import { useState } from "react"
 const GameOne = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentPosition, setCurrentPosition] = useState({});
+  const [foundChars, setFoundChars] = useState([
+    {
+      name: "Guts",
+      found: false,
+      // x and y where to place marker when char was found
+      x: 0.4724119810825013,
+      y: 0.8827252419955324,
+    },
+    {
+      name: "Griffith",
+      found: false,
+      x: 0.03205465055176038,
+      y: 0.4571854058078928,
+    },
+    {
+      name: "Crash",
+      found: false,
+      x: 0.4976353126642144,
+      y: 0.5692479523454952,
+    },
+  ]);
 
   const handleImgClick = (event) => {
     const x = event.nativeEvent.offsetX/event.nativeEvent.target.offsetWidth;
@@ -17,9 +38,6 @@ const GameOne = () => {
   };
 
   const handleSelectingCharacter = async (e, selectedChar) => {
-    console.log(selectedChar);
-    console.log(currentPosition);
-
     e.preventDefault();
 
     const formData = {
@@ -38,8 +56,21 @@ const GameOne = () => {
 
       if (response.ok) {
         const responseData = await response.json(); // Extract JSON from the response
-        console.log(responseData);
-        return console.log("success");
+
+        if (responseData.match) {
+          setIsOpen(!isOpen);
+          setFoundChars(foundChars.map(char => {
+            if (char.name === selectedChar) {
+              return {...char, found: true };
+            } else {
+              return char;
+            }
+          }));
+        } else {
+          setIsOpen(!isOpen);
+        }
+
+        return console.log(responseData.match);
       } else {
         const responseData = await response.json(); // Extract JSON from the response
         console.error('Something went wrong:', responseData);
@@ -50,10 +81,6 @@ const GameOne = () => {
     }
   };
 
-  const checkCoordinates = (event) => {
-    
-  };
-
   return (
     <main>
       <div className="image-container" >
@@ -62,6 +89,12 @@ const GameOne = () => {
         {isOpen && 
           <Popup positionX={currentPosition.x} positionY={currentPosition.y} handleSelect={handleSelectingCharacter} />
         }
+
+        {foundChars.map((char, index) => 
+          char.found ? (
+            <div className="found-marker" key={index} style={{position: "absolute", top: `calc(${char.y * 100}%)`, left: `calc(${char.x * 100}%)`}}></div>
+          ) : null
+        )}
       </div>
     </main>
   )

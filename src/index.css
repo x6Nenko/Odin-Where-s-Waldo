@@ -69,3 +69,10 @@ body {
 .dropdown button:hover {
   background-color: #dbeafe;
 }
+
+.found-marker {
+  background-color: #60a5fa50;
+  border: 3px solid #4ade80;
+  width: 4.5%;
+  height: 4%;
+}
