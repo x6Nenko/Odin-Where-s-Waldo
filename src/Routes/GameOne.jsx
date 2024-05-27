@@ -4,6 +4,7 @@ import { useState } from "react"
 
 const GameOne = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isWrong, setIsWrong] = useState(false);
   const [currentPosition, setCurrentPosition] = useState({});
   const [foundChars, setFoundChars] = useState([
     {
@@ -67,6 +68,11 @@ const GameOne = () => {
             }
           }));
         } else {
+          setIsWrong(true);
+          setTimeout(function() {
+            setIsWrong(false)
+          } , 1500);
+
           setIsOpen(!isOpen);
         }
 
@@ -95,6 +101,8 @@ const GameOne = () => {
             <div className="found-marker" key={index} style={{position: "absolute", top: `calc(${char.y * 100}%)`, left: `calc(${char.x * 100}%)`}}></div>
           ) : null
         )}
+
+        {isWrong && <div className="wrong-msg">Wrong. Try again.</div>}
       </div>
     </main>
   )

@@ -22,7 +22,7 @@ body {
   position: relative;
 }
 
-/* ============= POPUP ============= */
+/* ============= POPUPS ============= */
 
 .popup {
   position: absolute;
@@ -75,4 +75,18 @@ body {
   border: 3px solid #4ade80;
   width: 4.5%;
   height: 4%;
+}
+
+.wrong-msg {
+  background-color: #7f1d1d;
+  border: 3px solid #ef4444;
+  padding: 16px;
+  position: fixed;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
 }
