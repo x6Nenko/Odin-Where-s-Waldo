@@ -3,12 +3,14 @@ import Popup from "../components/Popup"
 import { useState, useEffect } from "react"
 import Timer from "../components/Timer"
 import { formatTime } from '../utils/formatTime';
+import { useNavigate } from "react-router-dom";
 
 const GameOne = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [counter, setCounter] = useState(0);
   const [finishedGame, setFinishedGame] = useState(false);
+  const [username, setUsername] = useState();
   const [currentPosition, setCurrentPosition] = useState({});
   const [foundChars, setFoundChars] = useState([
     {
@@ -31,6 +33,8 @@ const GameOne = () => {
       y: 0.5692479523454952,
     },
   ]);
+
+  const navigate = useNavigate();
 
   const handleImgClick = (event) => {
     const x = event.nativeEvent.offsetX/event.nativeEvent.target.offsetWidth;
@@ -91,6 +95,40 @@ const GameOne = () => {
     }
   };
 
+  const handleSavingTT = async (e) => {
+    e.preventDefault();
+    console.log(username);
+    console.log(formatTime(counter));
+
+    const formData = {
+      username: username,
+      toptime: formatTime(counter),
+      game: "Game1",
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/toptime', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        const responseData = await response.json(); // Extract JSON from the response
+        navigate("/");
+        return console.log(responseData);
+      } else {
+        const responseData = await response.json(); // Extract JSON from the response
+        console.error('Something went wrong:', responseData);
+      }
+    } catch (error) {
+      console.error('Something went wrong:', error);
+      // Handle other error cases
+    }
+  };
+
   useEffect(() => {
     const allFound = foundChars.every(char => char.found);
 
@@ -110,6 +148,12 @@ const GameOne = () => {
             <div className="overlay"></div>
             <div className="victory-menu">
               <h2>You found all characters in {formatTime(counter)}</h2>
+              <div>
+                <label htmlFor="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+              </div>
+
+              <button onClick={handleSavingTT}>Save top time</button>
             </div>
           </>
         }
