@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Popup = ({ positionX, positionY, handleSelect }) => {
+const Popup = ({ positionX, positionY, handleSelect, chars }) => {
   const style = {
     position: 'absolute',
     top: `calc(${positionY * 100}% - 41px)`,
@@ -14,9 +14,12 @@ const Popup = ({ positionX, positionY, handleSelect }) => {
       </div>
 
       <div className='dropdown'>
-        <button onClick={(e) => handleSelect(e, "Guts")}>Guts</button>
-        <button onClick={(e) => handleSelect(e, "Griffith")}>Griffith</button>
-        <button onClick={(e) => handleSelect(e, "Crash")}>Crash</button>
+        {chars.map((char, index) => (
+          char.found ? 
+          <button key={index} onClick={(e) => handleSelect(e, char.name)} disabled>{char.name}</button>
+          :
+          <button key={index} onClick={(e) => handleSelect(e, char.name)}>{char.name}</button>
+        ))}
       </div>
     </div>
   )
@@ -26,6 +29,7 @@ Popup.propTypes = {
   positionX: PropTypes.number,
   positionY: PropTypes.number,
   handleSelect: PropTypes.func,
+  chars: PropTypes.object.isRequired,
 };
 
 export default Popup

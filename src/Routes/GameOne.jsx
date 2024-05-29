@@ -1,10 +1,14 @@
 import picture from "/gameone-min.jpeg"
 import Popup from "../components/Popup"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Timer from "../components/Timer"
+import { formatTime } from '../utils/formatTime';
 
 const GameOne = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [finishedGame, setFinishedGame] = useState(false);
   const [currentPosition, setCurrentPosition] = useState({});
   const [foundChars, setFoundChars] = useState([
     {
@@ -87,13 +91,31 @@ const GameOne = () => {
     }
   };
 
+  useEffect(() => {
+    const allFound = foundChars.every(char => char.found);
+
+    if (allFound) {
+      setFinishedGame(true);
+    }
+  }, [foundChars]);
+
   return (
     <main>
+      <Timer counter={counter} setCounter={setCounter} isFinished={finishedGame} />
       <div className="image-container" >
         <img src={picture} alt="" className="game-picture" onClick={(e) => handleImgClick(e)} />
 
+        {finishedGame && 
+          <>
+            <div className="overlay"></div>
+            <div className="victory-menu">
+              <h2>You found all characters in {formatTime(counter)}</h2>
+            </div>
+          </>
+        }
+
         {isOpen && 
-          <Popup positionX={currentPosition.x} positionY={currentPosition.y} handleSelect={handleSelectingCharacter} />
+          <Popup positionX={currentPosition.x} positionY={currentPosition.y} handleSelect={handleSelectingCharacter} chars={foundChars} />
         }
 
         {foundChars.map((char, index) => 

@@ -22,6 +22,12 @@ body {
   position: relative;
 }
 
+/* ============= HEADER ============= */
+
+header {
+  width: 100%;
+}
+
 /* ============= POPUPS ============= */
 
 .popup {
@@ -66,6 +72,11 @@ body {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: #dbeafe;
+  color: #000;
+}
+
 .dropdown button:hover {
   background-color: #dbeafe;
 }
@@ -89,4 +100,28 @@ body {
   font-size: 20px;
   font-weight: 600;
   color: #fff;
+}
+
+.victory-menu {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+
+  border: 3px solid #4ade80;
+  padding: 16px;
+  background-color: #eff6ff;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 2;
 }
