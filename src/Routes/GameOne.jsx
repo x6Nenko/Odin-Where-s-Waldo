@@ -117,7 +117,7 @@ const GameOne = () => {
 
       if (response.ok) {
         const responseData = await response.json(); // Extract JSON from the response
-        navigate("/");
+        navigate("/leaderboard");
         return console.log(responseData);
       } else {
         const responseData = await response.json(); // Extract JSON from the response
