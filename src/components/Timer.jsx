@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatTime } from '../utils/formatTime';
+import { TimerContext } from '../contexts/TimerContext';
 
 
-const Timer = ({ counter, setCounter, isFinished }) => {
+const Timer = ({  isFinished }) => {
+  const [counter, setCounter] = useState(0);
+  const timerContext = useContext(TimerContext);
 
   useEffect(() => {
     if (!isFinished) {
@@ -17,6 +20,12 @@ const Timer = ({ counter, setCounter, isFinished }) => {
     }
   }, [setCounter, isFinished]);
 
+  useEffect(() => {
+    if (isFinished) {
+      timerContext.updateCounter(counter);
+    }
+  }, [counter, setCounter, isFinished, timerContext]);
+
   return (
     <div>
       <p>Elapsed time: {formatTime(counter)}</p>
@@ -25,8 +34,6 @@ const Timer = ({ counter, setCounter, isFinished }) => {
 };
 
 Timer.propTypes = {
-  counter: PropTypes.number.isRequired,
-  setCounter: PropTypes.func.isRequired,
   isFinished: PropTypes.bool.isRequired,
 };
 

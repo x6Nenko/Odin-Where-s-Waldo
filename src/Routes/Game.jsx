@@ -1,38 +1,22 @@
-import picture from "/gameone-min.jpeg"
 import Popup from "../components/Popup"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Timer from "../components/Timer"
 import { formatTime } from '../utils/formatTime';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { gameData } from "../utils/gameData";
+import { TimerContext } from "../contexts/TimerContext";
 
-const GameOne = () => {
+const Game = () => {
+  const location = useLocation();
+  const timerContext = useContext(TimerContext);
+  const selectedGame = gameData.find(gameEntry => gameEntry.game === location.pathname);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
-  const [counter, setCounter] = useState(0);
   const [finishedGame, setFinishedGame] = useState(false);
-  const [username, setUsername] = useState();
+  const [username, setUsername] = useState("");
   const [currentPosition, setCurrentPosition] = useState({});
-  const [foundChars, setFoundChars] = useState([
-    {
-      name: "Guts",
-      found: false,
-      // x and y where to place marker when char was found
-      x: 0.4724119810825013,
-      y: 0.8827252419955324,
-    },
-    {
-      name: "Griffith",
-      found: false,
-      x: 0.03205465055176038,
-      y: 0.4571854058078928,
-    },
-    {
-      name: "Crash",
-      found: false,
-      x: 0.4976353126642144,
-      y: 0.5692479523454952,
-    },
-  ]);
+  const [foundChars, setFoundChars] = useState(selectedGame.chars);
 
   const navigate = useNavigate();
 
@@ -98,11 +82,11 @@ const GameOne = () => {
   const handleSavingTT = async (e) => {
     e.preventDefault();
     console.log(username);
-    console.log(formatTime(counter));
+    console.log(formatTime(timerContext.counter));
 
     const formData = {
       username: username,
-      toptime: formatTime(counter),
+      toptime: formatTime(timerContext.counter),
       game: "Game1",
     }
 
@@ -116,9 +100,7 @@ const GameOne = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); // Extract JSON from the response
-        navigate("/leaderboard");
-        return console.log(responseData);
+        return navigate("/leaderboard");
       } else {
         const responseData = await response.json(); // Extract JSON from the response
         console.error('Something went wrong:', responseData);
@@ -139,15 +121,15 @@ const GameOne = () => {
 
   return (
     <main>
-      <Timer counter={counter} setCounter={setCounter} isFinished={finishedGame} />
+      <Timer isFinished={finishedGame} />
       <div className="image-container" >
-        <img src={picture} alt="" className="game-picture" onClick={(e) => handleImgClick(e)} />
+        <img src={selectedGame.img_src} alt="" className="game-picture" onClick={(e) => handleImgClick(e)} />
 
         {finishedGame && 
           <>
             <div className="overlay"></div>
             <div className="victory-menu">
-              <h2>You found all characters in {formatTime(counter)}</h2>
+              <h2>You found all characters in {formatTime(timerContext.counter)}</h2>
               <div>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
@@ -174,4 +156,4 @@ const GameOne = () => {
   )
 }
 
-export default GameOne
+export default Game

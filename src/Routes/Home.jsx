@@ -8,7 +8,7 @@ const Home = () => {
       <section>
         <article className="game-card">
           <h2>Game name</h2>
-          <NavLink to="game1">Start</NavLink>
+          <NavLink to="game-1">Start</NavLink>
         </article>
       </section>
     </main>

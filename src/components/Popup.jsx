@@ -29,7 +29,7 @@ Popup.propTypes = {
   positionX: PropTypes.number,
   positionY: PropTypes.number,
   handleSelect: PropTypes.func,
-  chars: PropTypes.object.isRequired,
+  chars: PropTypes.array.isRequired,
 };
 
 export default Popup

@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Home from "./Home";
+import { TimerProvider } from "../contexts/TimerContext";
 
 const Root = () => {
   let location = useLocation();
@@ -7,7 +8,9 @@ const Root = () => {
   return (
     <div className="main-wrapper">
       {location.pathname === "/" && <Home />}
-      <Outlet />
+      <TimerProvider>
+        <Outlet />
+      </TimerProvider>
     </div>
   )
 }

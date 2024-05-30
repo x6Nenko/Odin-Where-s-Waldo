@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css'
 import Root from './Routes/Root';
-import GameOne from './Routes/GameOne';
+import Game from './Routes/Game';
 import Leaderboard from './Routes/Leaderboard';
 
 const router = createBrowserRouter([
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     //errorElement: <ErrorPage />,
     children: [
       {
-        path: "game1",
-        element: <GameOne />,
+        path: "game-1",
+        element: <Game />,
       },
       {
         path: "leaderboard",
