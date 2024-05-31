@@ -9,7 +9,7 @@ import { TimerContext } from "../contexts/TimerContext";
 const Game = () => {
   const location = useLocation();
   const timerContext = useContext(TimerContext);
-  const selectedGame = gameData.find(gameEntry => gameEntry.game === location.pathname);
+  const selectedGame = gameData.find(gameEntry => gameEntry.game_route === location.pathname);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
@@ -17,6 +17,7 @@ const Game = () => {
   const [username, setUsername] = useState("");
   const [currentPosition, setCurrentPosition] = useState({});
   const [foundChars, setFoundChars] = useState(selectedGame.chars);
+  const [serverTimerResult, setServerTimerResult] = useState();
 
   const navigate = useNavigate();
 
@@ -86,8 +87,9 @@ const Game = () => {
 
     const formData = {
       username: username,
-      toptime: formatTime(timerContext.counter),
-      game: "Game1",
+      toptime_client: formatTime(timerContext.counter),
+      toptime_server: serverTimerResult,
+      game: selectedGame.game_name,
     }
 
     try {
@@ -111,13 +113,58 @@ const Game = () => {
     }
   };
 
+  // finish game, end timer
   useEffect(() => {
     const allFound = foundChars.every(char => char.found);
+    async function fetchTimer() {
+      try {
+        const response = await fetch('http://localhost:3000/end', {
+          method: 'GET',
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json(); // Extract JSON from the response
+          setServerTimerResult(responseData.difference);
+          console.log(responseData);
+        } else {
+          const responseData = await response.json(); // Extract JSON from the response
+          console.error('Something went wrong:', responseData);
+        }
+      } catch (error) {
+        console.error('Something went wrong:', error);
+        // Handle other error cases
+      }
+    }
 
     if (allFound) {
       setFinishedGame(true);
+      fetchTimer();
     }
   }, [foundChars]);
+
+  // start timer
+  useEffect(() => {
+    async function fetchTimer() {
+      try {
+        const response = await fetch('http://localhost:3000/start', {
+          method: 'GET',
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json(); // Extract JSON from the response
+          console.log(responseData);
+        } else {
+          const responseData = await response.json(); // Extract JSON from the response
+          console.error('Something went wrong:', responseData);
+        }
+      } catch (error) {
+        console.error('Something went wrong:', error);
+        // Handle other error cases
+      }
+    }
+
+    fetchTimer();
+  }, []);
 
   return (
     <main>
@@ -129,7 +176,9 @@ const Game = () => {
           <>
             <div className="overlay"></div>
             <div className="victory-menu">
-              <h2>You found all characters in {formatTime(timerContext.counter)}</h2>
+              <h2>You found all characters in:</h2>
+              <p>Client time (counted by your browser): {formatTime(timerContext.counter)}</p>
+              <p>Server time (counted by server): {serverTimerResult}</p>
               <div>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>

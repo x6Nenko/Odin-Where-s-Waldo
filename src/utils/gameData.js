@@ -2,7 +2,8 @@ import image1 from "../assets/gameone-min.jpeg"
 
 export const gameData = [
   {
-    game: "/game-1",
+    game_route: "/game-1",
+    game_name: "Game1",
     img_src: image1,
     chars: [
       {
@@ -27,7 +28,8 @@ export const gameData = [
     ]
   },
   {
-    game: "/game-2",
+    game_route: "/game-2",
+    game_name: "Game2",
     img_src: image1,
     chars: [
       {

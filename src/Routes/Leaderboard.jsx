@@ -36,7 +36,7 @@ const Leaderboard = () => {
       <section>
         {selectedTTs && selectedTTs.length > 0 ? 
           selectedTTs.map(tt => (
-            <div key={tt._id}>{tt.time} {tt.username} {convertTime(tt.createdAt)}</div>
+            <div key={tt._id}>Server: {tt.time_server} Client: {tt.time_client} {tt.username} {convertTime(tt.createdAt)}</div>
           ))
           :
           <p>There are no TTs yet</p>
