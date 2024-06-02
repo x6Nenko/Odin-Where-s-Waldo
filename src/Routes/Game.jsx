@@ -168,7 +168,27 @@ const Game = () => {
 
   return (
     <main>
-      <Timer isFinished={finishedGame} />
+      <div className="game-header">
+        <div className="placeholder-container">
+          <div className="placeholder-circle"></div>
+          <div className="placeholder-circle circle-200"></div>
+          <div className="placeholder-circle circle-300"></div>
+        </div>
+
+        <Timer isFinished={finishedGame} />
+
+        <div className="chars-preview-game-container">
+          {foundChars.map((char, index) => (
+            char.found ? 
+            <div key={index} className="game-char-preview-found-container"> 	
+              <span className="checkmark">&#x2713;</span>
+              <img src={char.img} className="game-char-preview game-char-preview-found" />
+            </div>
+            :
+            <img src={char.img} key={index} className="game-char-preview" />
+          ))}
+        </div>
+      </div>
       <div className="image-container" >
         <img src={selectedGame.img_src} alt="" className="game-picture" onClick={(e) => handleImgClick(e)} />
 
@@ -176,15 +196,26 @@ const Game = () => {
           <>
             <div className="overlay"></div>
             <div className="victory-menu">
-              <h2>You found all characters in:</h2>
-              <p>Client time (counted by your browser): {formatTime(timerContext.counter)}</p>
-              <p>Server time (counted by server): {serverTimerResult}</p>
-              <div>
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+              <h2>Well done. You did it!</h2>
+
+              <div className="result-time-container">
+                <p>Elapsed client time:</p>
+                <span className="result-time">{formatTime(timerContext.counter)}</span>
               </div>
 
-              <button onClick={handleSavingTT}>Save top time</button>
+              <div className="result-time-container">
+                <p>Elapsed server time:</p>
+                <span className="result-time">{serverTimerResult}</span>
+              </div>
+
+              <hr className="victory-menu-hr" />
+
+              <div className="input-container">
+                <label className="username-label" htmlFor="username">Username:</label>
+                <input className="username-input" type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+              </div>
+
+              <button onClick={handleSavingTT} className="save-btn">Save top time</button>
             </div>
           </>
         }

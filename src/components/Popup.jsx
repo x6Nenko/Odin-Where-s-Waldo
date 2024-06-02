@@ -16,9 +16,9 @@ const Popup = ({ positionX, positionY, handleSelect, chars }) => {
       <div className='dropdown'>
         {chars.map((char, index) => (
           char.found ? 
-          <button key={index} onClick={(e) => handleSelect(e, char.name)} disabled>{char.name}</button>
+          <button key={index} onClick={(e) => handleSelect(e, char.name)} disabled><img className='selection-char-img' src={char.img} alt='' /> {char.name}</button>
           :
-          <button key={index} onClick={(e) => handleSelect(e, char.name)}>{char.name}</button>
+          <button key={index} onClick={(e) => handleSelect(e, char.name)}><img className='selection-char-img' src={char.img} alt='' /> {char.name}</button>
         ))}
       </div>
     </div>

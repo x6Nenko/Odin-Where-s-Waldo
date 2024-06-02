@@ -1,14 +1,21 @@
+// GAME-1
 import image1 from "../assets/gameone-min.jpeg"
+import guts from "../assets/guts.png"
+import griffith from "../assets/griffith.png"
+import crash from "../assets/crash.png"
+import image1_leaderboard from "../assets/game1-leaderboard.png"
 
 export const gameData = [
   {
     game_route: "/game-1",
     game_name: "Game1",
     img_src: image1,
+    img_leaderboard: image1_leaderboard,
     chars: [
       {
         name: "Guts",
         found: false,
+        img: guts,
         // x and y where to place marker when char was found
         x: 0.4724119810825013,
         y: 0.8827252419955324,
@@ -16,12 +23,14 @@ export const gameData = [
       {
         name: "Griffith",
         found: false,
+        img: griffith,
         x: 0.03205465055176038,
         y: 0.4571854058078928,
       },
       {
         name: "Crash",
         found: false,
+        img: crash,
         x: 0.4976353126642144,
         y: 0.5692479523454952,
       },
@@ -31,6 +40,7 @@ export const gameData = [
     game_route: "/game-2",
     game_name: "Game2",
     img_src: image1,
+    img_leaderboard: image1_leaderboard,
     chars: [
       {
         name: "Guts",

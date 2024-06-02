@@ -1,6 +1,7 @@
 import useData from "../hooks/useData"
 import { useState } from "react";
 import { DateTime } from "luxon";
+import { gameData } from "../utils/gameData";
 
 const Leaderboard = () => {
   const allTTs = useData("http://localhost:3000/toptime");
@@ -21,16 +22,17 @@ const Leaderboard = () => {
 
   return (
     <main>
-      <h1>Leaderboard</h1>
+      <h1 className="title">Leaderboard</h1>
 
-      <section>
-        <article className="game-card" onClick={() => handleSelect("Game1")}>
-          <h2>Game 1</h2>
-        </article>
-
-        <article className="game-card" onClick={() => handleSelect("Game2")}>
-          <h2>Game 2</h2>
-        </article>
+      <section className="cards-container">
+        {gameData.map((game, index) => (
+          <article key={index} className="game-card" onClick={() => handleSelect(game.game_name)}>
+            <div className="leaderboard-img">
+              <img src={game.img_leaderboard} alt="" />
+            </div>
+            <h2>Game-{index + 1}</h2>
+          </article>
+        ))}
       </section>
 
       <section>

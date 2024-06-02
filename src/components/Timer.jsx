@@ -27,8 +27,9 @@ const Timer = ({  isFinished }) => {
   }, [counter, setCounter, isFinished, timerContext]);
 
   return (
-    <div>
-      <p>Elapsed time: {formatTime(counter)}</p>
+    <div className='timer-container'>
+      <span className='timer-title'>Elapsed time</span> 
+      <span className='timer-count'>{formatTime(counter)}</span>
     </div>
   );
 };
