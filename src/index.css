@@ -67,12 +67,11 @@ nav a.active {
 .target {
   background-color: #60a5fa50;
   border: 3px solid #60a5fa;
-  width: 76px;
-  height: 76px;
   border-radius: 100px;
-
   display: grid;
   place-content: center;
+  width: 5vw;
+  height: 5vw;
 }
 
 .target-dot {
@@ -141,6 +140,24 @@ button:disabled {
   color: #fff;
 }
 
+@media screen and (max-width: 1000px) {
+  .selection-char-img {
+    width: 42px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .selection-char-img {
+    width: 32px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .selection-char-img {
+    width: 22px;
+  }
+}
+
 /* ============= TIMER ============= */
 
 .timer-container {
@@ -169,8 +186,10 @@ button:disabled {
 .cards-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 32px;
   margin-top: 32px;
+  padding: 0 16px;
 }
 
 .game-card {
@@ -264,17 +283,19 @@ button:disabled {
   background-color: #f0f9ff;
 }
 
-.row:nth-of-type(2) .col:first-child {
-  
-}
-
 .col {
-  width: 25%;
+  width: 20%;
 }
 
 .col:first-child {
   text-align: center;
   width: 10%;
+}
+
+.col:nth-of-type(2) {
+  width: 35%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .row:first-child {
@@ -306,6 +327,28 @@ button:disabled {
 
 .row:nth-of-type(4) .champ {
   background-color: #cbd5e1;
+}
+
+@media screen and (max-width: 700px) {
+  .col:nth-of-type(4) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .col:last-of-type {
+    display: none;
+  }
+
+  .col:nth-of-type(2) {
+    width: 40%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .col:nth-of-type(3) {
+    width: 35%;
+  }
 }
 
 /* ============= GAME ============= */
@@ -384,6 +427,8 @@ button:disabled {
 .result-time-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 }
 
 .result-time-container p {
@@ -466,4 +511,18 @@ button:disabled {
   text-align: center;
   font-size: 12px;
   color: #b91c1c;
+}
+
+@media screen and (max-width: 1000px) {
+  .placeholder-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .game-header {
+    align-items: center;
+    gap: 16px;
+    flex-direction: column;
+  }
 }
