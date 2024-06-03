@@ -2,12 +2,17 @@ import useData from "../hooks/useData"
 import { useState } from "react";
 import { DateTime } from "luxon";
 import { gameData } from "../utils/gameData";
+import { timeStringToMilliseconds } from "../utils/formatTime";
 
 const Leaderboard = () => {
   const allTTs = useData("http://localhost:3000/toptime");
   const [activeGame, setActiveGame] = useState("Game1");
 
-  const selectedTTs = allTTs && allTTs.toptimes.filter(tt => tt.game.name === activeGame);
+  const selectedTTs = allTTs && allTTs.toptimes.filter(tt => tt.game.name === activeGame).sort((a, b) => {
+    const timeA = timeStringToMilliseconds(a.time_server);
+    const timeB = timeStringToMilliseconds(b.time_server);
+    return timeA - timeB;
+  });
 
   function convertTime(time) {
     const createdAtDate = new Date(time);
@@ -26,7 +31,11 @@ const Leaderboard = () => {
 
       <section className="cards-container">
         {gameData.map((game, index) => (
-          <article key={index} className="game-card" onClick={() => handleSelect(game.game_name)}>
+          <article 
+            key={index} 
+            className={`game-card game-leaderboard-card ${game.game_name === activeGame ? "game-card-active" : ""}`}
+            onClick={() => handleSelect(game.game_name)}
+          >
             <div className="leaderboard-img">
               <img src={game.img_leaderboard} alt="" />
             </div>
@@ -35,13 +44,61 @@ const Leaderboard = () => {
         ))}
       </section>
 
-      <section>
+      <section className="tts-container">
+        {(selectedTTs && selectedTTs.length > 0) && 
+          <div className="row">
+            <div className="col">
+              #
+            </div>
+            
+            <div className="col">
+              Username
+            </div>
+
+            <div className="col">
+              Server time
+            </div>
+
+            <div className="col">
+              Client time
+            </div>
+
+            <div className="col">
+              Date
+            </div>
+          </div>
+        }
+  
         {selectedTTs && selectedTTs.length > 0 ? 
-          selectedTTs.map(tt => (
-            <div key={tt._id}>Server: {tt.time_server} Client: {tt.time_client} {tt.username} {convertTime(tt.createdAt)}</div>
+          selectedTTs.map((tt, index) => (
+            <div className="row" key={tt._id}>
+              <div className="col">
+                {index+1 <= 3 ? 
+                  <span className="champ">{index+1}</span>
+                  :
+                  index+1
+                }
+              </div>
+              
+              <div className="col">
+                {tt.username}
+              </div>
+
+              <div className="col">
+                {tt.time_server}
+              </div>
+
+              <div className="col">
+                {tt.time_client}
+              </div>
+
+              <div className="col">
+                {convertTime(tt.createdAt)}
+              </div>
+            </div>
           ))
           :
-          <p>There are no TTs yet</p>
+          <p className="no-tts">There are no TTs yet</p>
         }
       </section>
     </main>

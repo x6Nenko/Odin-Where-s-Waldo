@@ -6,3 +6,13 @@ export const formatTime = (totalSeconds) => {
   const hours = Math.floor(totalSeconds / 360000).toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}:${ms}`;
 };
+
+export function timeStringToMilliseconds(timeString) {
+  const [hours, minutes, seconds, milliseconds] = timeString.split(':').map(Number);
+  return (
+    hours * 60 * 60 * 1000 +
+    minutes * 60 * 1000 +
+    seconds * 1000 +
+    milliseconds
+  );
+}

@@ -182,6 +182,10 @@ button:disabled {
   transition: all .1s ease-in;
 }
 
+.game-card-active {
+  border-color: #2563eb;
+}
+
 .game-card:hover {
   border-color: #2563eb;
 }
@@ -232,6 +236,77 @@ button:disabled {
 }
 
 /* ============= LEADERBOARD ============= */
+
+.tts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 1024px;
+  margin: 32px auto 0;
+}
+
+.game-leaderboard-card {
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.row:nth-of-type(odd) {
+  background-color: #dbeafe;
+}
+
+.row:nth-of-type(even) {
+  background-color: #f0f9ff;
+}
+
+.row:nth-of-type(2) .col:first-child {
+  
+}
+
+.col {
+  width: 25%;
+}
+
+.col:first-child {
+  text-align: center;
+  width: 10%;
+}
+
+.row:first-child {
+  font-weight: 500;
+}
+
+.col:last-of-type {
+  width: 15%;
+}
+
+.no-tts {
+  text-align: center;
+}
+
+.champ {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 100px;
+}
+
+.row:nth-of-type(2) .champ {
+  background-color: #fde047;
+}
+
+.row:nth-of-type(3) .champ {
+  background-color: #fdba74;
+}
+
+.row:nth-of-type(4) .champ {
+  background-color: #cbd5e1;
+}
 
 /* ============= GAME ============= */
 
@@ -293,6 +368,7 @@ button:disabled {
   border-radius: 16px;
   padding: 16px;
   background-color: #dbeafe;
+  max-width: 310px;
 }
 
 .victory-menu h2 {
@@ -382,4 +458,12 @@ button:disabled {
 .save-btn:hover, .save-btn:focus {
   background-color: #dbeafe50;
   border-color: #3b82f6;
+}
+
+.input-error {
+  margin-top: 4px;
+  display: inline-block;
+  text-align: center;
+  font-size: 12px;
+  color: #b91c1c;
 }

@@ -18,6 +18,7 @@ const Game = () => {
   const [currentPosition, setCurrentPosition] = useState({});
   const [foundChars, setFoundChars] = useState(selectedGame.chars);
   const [serverTimerResult, setServerTimerResult] = useState();
+  const [isInputError, setIsInputError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -105,6 +106,8 @@ const Game = () => {
         return navigate("/leaderboard");
       } else {
         const responseData = await response.json(); // Extract JSON from the response
+        setIsInputError(responseData.errors[0].msg);
+        console.log(responseData.errors[0].msg);
         console.error('Something went wrong:', responseData);
       }
     } catch (error) {
@@ -214,6 +217,8 @@ const Game = () => {
                 <label className="username-label" htmlFor="username">Username:</label>
                 <input className="username-input" type="text" name="username" id="username" placeholder="John5000" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
               </div>
+
+              {isInputError && <span className="input-error">{isInputError}</span>}
 
               <button onClick={handleSavingTT} className="save-btn">Save top time</button>
             </div>
