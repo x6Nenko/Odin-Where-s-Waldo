@@ -9,7 +9,9 @@ const Root = () => {
   return (
     <div className="main-wrapper">
       <Navbar />
-      {location.pathname === "/" && <Home />}
+      {location.pathname === "/" && 
+          <Home />
+      }
       <TimerProvider>
         <Outlet />
       </TimerProvider>
