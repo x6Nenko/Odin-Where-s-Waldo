@@ -113,6 +113,10 @@ const Game = () => {
     }
   };
 
+  const handleCancel = () => {
+    return navigate("/");
+  }
+
   // finish game, end timer
   useEffect(() => {
     const allFound = foundChars.every(char => char.found);
@@ -218,6 +222,7 @@ const Game = () => {
               {isInputError && <span className="input-error">{isInputError}</span>}
 
               <button onClick={handleSavingTT} className="save-btn">Save top time</button>
+              <button onClick={handleCancel} className="save-btn">Cancel</button>
             </div>
           </>
         }
