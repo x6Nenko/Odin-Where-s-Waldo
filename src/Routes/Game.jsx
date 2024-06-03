@@ -26,7 +26,7 @@ const Game = () => {
     const x = event.nativeEvent.offsetX/event.nativeEvent.target.offsetWidth;
     const y = event.nativeEvent.offsetY/event.nativeEvent.target.offsetHeight;
     
-    console.log({ x, y });
+    // console.log({ x, y });
 
     setCurrentPosition({x: x, y: y});
     setIsOpen(!isOpen);
@@ -41,7 +41,7 @@ const Game = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/check', {
+      const response = await fetch('https://rowan-gifted-citrine.glitch.me/check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ const Game = () => {
           setIsOpen(!isOpen);
         }
 
-        return console.log(responseData.match);
+        // return console.log(responseData.match);
       } else {
         const responseData = await response.json(); // Extract JSON from the response
         console.error('Something went wrong:', responseData);
@@ -83,8 +83,6 @@ const Game = () => {
 
   const handleSavingTT = async (e) => {
     e.preventDefault();
-    console.log(username);
-    console.log(formatTime(timerContext.counter));
 
     const formData = {
       username: username,
@@ -94,7 +92,7 @@ const Game = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/toptime', {
+      const response = await fetch('https://rowan-gifted-citrine.glitch.me/toptime', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -107,7 +105,6 @@ const Game = () => {
       } else {
         const responseData = await response.json(); // Extract JSON from the response
         setIsInputError(responseData.errors[0].msg);
-        console.log(responseData.errors[0].msg);
         console.error('Something went wrong:', responseData);
       }
     } catch (error) {
@@ -121,14 +118,14 @@ const Game = () => {
     const allFound = foundChars.every(char => char.found);
     async function fetchTimer() {
       try {
-        const response = await fetch('http://localhost:3000/end', {
+        const response = await fetch('https://rowan-gifted-citrine.glitch.me/end', {
           method: 'GET',
         });
   
         if (response.ok) {
           const responseData = await response.json(); // Extract JSON from the response
           setServerTimerResult(responseData.difference);
-          console.log(responseData);
+          // console.log(responseData);
         } else {
           const responseData = await response.json(); // Extract JSON from the response
           console.error('Something went wrong:', responseData);
@@ -149,13 +146,13 @@ const Game = () => {
   useEffect(() => {
     async function fetchTimer() {
       try {
-        const response = await fetch('http://localhost:3000/start', {
+        const response = await fetch('https://rowan-gifted-citrine.glitch.me/start', {
           method: 'GET',
         });
   
         if (response.ok) {
-          const responseData = await response.json(); // Extract JSON from the response
-          console.log(responseData);
+          // const responseData = await response.json(); // Extract JSON from the response
+          // console.log(responseData);
         } else {
           const responseData = await response.json(); // Extract JSON from the response
           console.error('Something went wrong:', responseData);

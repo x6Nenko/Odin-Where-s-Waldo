@@ -5,7 +5,7 @@ import { gameData } from "../utils/gameData";
 import { timeStringToMilliseconds } from "../utils/formatTime";
 
 const Leaderboard = () => {
-  const allTTs = useData("http://localhost:3000/toptime");
+  const allTTs = useData("https://rowan-gifted-citrine.glitch.me/toptime");
   const [activeGame, setActiveGame] = useState("Game1");
 
   const selectedTTs = allTTs && allTTs.toptimes.filter(tt => tt.game.name === activeGame).sort((a, b) => {
@@ -19,7 +19,7 @@ const Leaderboard = () => {
     return DateTime.fromJSDate(createdAtDate).setLocale('en').toLocaleString(DateTime.DATE_MED);
   }
 
-  console.log(allTTs && allTTs.toptimes);
+  // console.log(allTTs && allTTs.toptimes);
 
   function handleSelect(game) {
     setActiveGame(game)

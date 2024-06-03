@@ -18,14 +18,14 @@ const Home = () => {
   useEffect(() => {
     async function wakeup() {
       try {
-        const response = await fetch('http://localhost:3000/wakeup', {
+        const response = await fetch('https://rowan-gifted-citrine.glitch.me/wakeup', {
           method: 'GET',
         });
   
         if (response.ok) {
-          const responseData = await response.json(); // Extract JSON from the response
+          // const responseData = await response.json(); // Extract JSON from the response
           setWokeup(true);
-          console.log(responseData);
+          // console.log(responseData);
         } else {
           const responseData = await response.json(); // Extract JSON from the response
           console.error('Something went wrong:', responseData);
